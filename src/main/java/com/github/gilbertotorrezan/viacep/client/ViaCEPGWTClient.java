@@ -24,21 +24,18 @@
  */
 package com.github.gilbertotorrezan.viacep.client;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.fusesource.restygwt.client.JsonCallback;
-import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 
 import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONValue;
 
 /**
  * Classe de acesso aos web services da ViaCEP para GWT.
  * Utiliza RestyGWT para a comunicação e serialização de objetos Java.
+ * 
+ * As chamadas utilizam CORS.
  * 
  * @author Gilberto Torrezan Filho
  *
@@ -116,29 +113,7 @@ public class ViaCEPGWTClient {
 		}
 		
 		ViaCEPGWTService service = getService();
-		
-		//must use JsonCallback here due to this bug: https://github.com/resty-gwt/resty-gwt/issues/254 
-		service.getEnderecos(uf, localidade, logradouro, new JsonCallback() {
-			@Override
-			public void onSuccess(Method method, JSONValue response) {
-				JSONArray array = response.isArray();
-				if (array == null || array.size() == 0){
-					callback.onSuccess(method, new ArrayList<ViaCEPEndereco>(0));
-				}
-				else {
-					List<ViaCEPEndereco> list = new ArrayList<>(array.size());
-					ViaCEPJsonEncoderDecoder codec = GWT.create(ViaCEPJsonEncoderDecoder.class);
-					for (int i = 0; i< array.size(); i++){
-						list.add(codec.decode(array.get(i)));
-					}
-					callback.onSuccess(method, list);
-				}
-			}
-			@Override
-			public void onFailure(Method method, Throwable exception) {
-				callback.onFailure(method, exception);
-			}
-		});
+		service.getEnderecos(uf, localidade, logradouro, callback);
 	}
 	
 	/**

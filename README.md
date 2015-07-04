@@ -70,6 +70,8 @@ client.getEnderecos("SP", "São Paulo", "Avenida Paulista", new MethodCallback<L
 });
 ```
 
+Os web services são chamados utilizando CORS ao invés de JSONP.
+
 ## Setup
 
 ### Adicione o ViaCEP Client no classpath do seu projeto 
