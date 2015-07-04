@@ -24,31 +24,17 @@
  */
 package com.github.gilbertotorrezan.viacep.client;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-
-import org.fusesource.restygwt.client.JSONP;
-import org.fusesource.restygwt.client.JsonCallback;
-import org.fusesource.restygwt.client.MethodCallback;
-import org.fusesource.restygwt.client.RestService;
+import org.fusesource.restygwt.client.JsonEncoderDecoder;
 
 import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
 
 /**
- * Interface REST utilizada pelo {@link ViaCEPGWTClient} para acessar os web services da ViaCEP.
+ * Classe interna utilizada para fazer a decodificação de JSON para {@link ViaCEPEndereco} no GWT.
  * 
  * @author Gilberto Torrezan Filho
  *
  * @since v.1.0.0
  */
-public interface ViaCEPGWTService extends RestService {
-
-    @Path("//viacep.com.br/ws/{cep}/json/")
-    @JSONP(callbackParam="callback")
-    void getEndereco(@PathParam("cep") String cep, MethodCallback<ViaCEPEndereco> callback);
-    
-    @Path("//viacep.com.br/ws/{uf}/{localidade}/{logradouro}/json/")
-    @JSONP(callbackParam="callback")
-    void getEnderecos(@PathParam("uf") String uf, @PathParam("localidade") String localidade, @PathParam("logradouro") String logradouro, JsonCallback callback);
+public interface ViaCEPJsonEncoderDecoder extends JsonEncoderDecoder<ViaCEPEndereco> {
 
 }
