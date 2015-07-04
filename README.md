@@ -83,11 +83,14 @@ Usando Apache Maven:
 	<version>1.0.0</version>
 </dependency>
 ```
-Você pode baixar o jar diretamente do [The Central Repository](http://search.maven.org/#search|gav|1|g%3A%22com.github.gilberto-torrezan%22%20AND%20a%3A%22viacep%22) também. Fique atento as dependências.
+Você pode baixar o jar diretamente do [The Central Repository](http://search.maven.org/#search|gav|1|g%3A%22com.github.gilberto-torrezan%22%20AND%20a%3A%22viacep%22) também. Fique atento as dependências:
+
+* Para GWT, é necessário importar o [RestyGWT](https://resty-gwt.github.io/) (o projeto usa v.2.0.3)
+* Para Java SE, é necessário importar o [Jackson jr](https://github.com/FasterXML/jackson-jr) (o projeto usa v.2.5.3)
 
 ### Módulo GWT
 
-Para usar o client GWT, adicione o ViaCEp Client no seu project.gwt.xml:
+Para usar o client GWT, adicione o ViaCEP Client no seu project.gwt.xml:
 
 ```xml
 <inherits name="com.github.gilbertotorrezan.viacep.viacep"/>
