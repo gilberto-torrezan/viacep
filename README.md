@@ -8,7 +8,7 @@ ViaCEP é um webservice gratuito e de alto desempenho para consultar Códigos de
 
 ## ViaCEP Client
 
-O projeto ViaCEP Client disponibiliza uma API amigável para o acesso aos webservices da ViaCEP utilizando Java. Funciona tanto em Java Standard Edition (servidores e clientes desktop) quanto clientes Android e GWT. Requer Java 7 (e no caso do GWT, SDK 2.7.0).
+O projeto ViaCEP Client disponibiliza uma API amigável para o acesso aos webservices da ViaCEP utilizando Java. Funciona tanto em Java Standard Edition (servidores e clientes desktop) quanto clientes Android e GWT. Requer Java 6+ (e no caso do GWT, SDK 2.7.0).
 
 ## Exemplos
 
@@ -70,7 +70,7 @@ client.getEnderecos("SP", "São Paulo", "Avenida Paulista", new MethodCallback<L
 });
 ```
 
-Os web services são chamados utilizando CORS ao invés de JSONP.
+A partir da versão 1.1.0, os web services são chamados utilizando CORS ao invés de JSONP.
 
 ## Setup
 
@@ -82,7 +82,7 @@ Usando Apache Maven:
 <dependency>
 	<groupId>com.github.gilberto-torrezan</groupId>
 	<artifactId>viacep</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 </dependency>
 ```
 Você pode baixar o jar diretamente do [The Central Repository](http://search.maven.org/#search|gav|1|g%3A%22com.github.gilberto-torrezan%22%20AND%20a%3A%22viacep%22) também. Fique atento as dependências:
