@@ -15,7 +15,7 @@ O projeto ViaCEP Client disponibiliza uma API amigável para o acesso aos webser
 
 ## Exemplos
 
-### Java SE e Android
+### Java SE (desktop e servidores) e Android
 
 Consulta por CEP:
 
@@ -85,13 +85,13 @@ Usando Apache Maven:
 <dependency>
 	<groupId>com.github.gilberto-torrezan</groupId>
 	<artifactId>viacep</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 </dependency>
 ```
 Você pode baixar o jar diretamente do [The Central Repository](http://search.maven.org/#search|gav|1|g%3A%22com.github.gilberto-torrezan%22%20AND%20a%3A%22viacep%22) também. Fique atento as dependências:
 
 * Para GWT, é necessário importar o [RestyGWT](https://resty-gwt.github.io/) (o projeto usa v.2.0.3)
-* Para Java SE, é necessário importar o [Jackson jr](https://github.com/FasterXML/jackson-jr) (o projeto usa v.2.5.3)
+* Para Java SE e Android, é necessário importar o [Jackson jr](https://github.com/FasterXML/jackson-jr) (o projeto usa v.2.6.3)
 
 ### Módulo GWT
 

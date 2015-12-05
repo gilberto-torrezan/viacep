@@ -26,8 +26,8 @@ package com.github.gilbertotorrezan.viacep.shared;
 
 import java.io.Serializable;
 
-import com.github.gilbertotorrezan.viacep.client.ViaCEPGWTClient;
-import com.github.gilbertotorrezan.viacep.server.ViaCEPClient;
+import com.github.gilbertotorrezan.viacep.gwt.ViaCEPGWTClient;
+import com.github.gilbertotorrezan.viacep.se.ViaCEPClient;
 
 /**
  * Classe que representa o retorno das chamadas de web service da ViaCEP.

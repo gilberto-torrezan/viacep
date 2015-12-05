@@ -22,12 +22,14 @@
  * SOFTWARE.
  * 
  */
-package com.github.gilbertotorrezan.viacep.client;
+package com.github.gilbertotorrezan.viacep.gwt;
 
 import java.util.List;
 
 import org.fusesource.restygwt.client.MethodCallback;
+import org.fusesource.restygwt.client.ServiceRoots;
 
+import com.github.gilbertotorrezan.viacep.shared.ViaCEPConstants;
 import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
 import com.google.gwt.core.client.GWT;
 
@@ -35,7 +37,14 @@ import com.google.gwt.core.client.GWT;
  * Classe de acesso aos web services da ViaCEP para GWT.
  * Utiliza RestyGWT para a comunicação e serialização de objetos Java.
  * 
- * As chamadas utilizam CORS.
+ * As chamadas utilizam CORS, e por padrão utilizam HTTPS. Para utilizar HTTP, ou
+ * outro host, utilize:
+ * 
+ * <pre>
+ * <code>
+ * ServiceRoots.add(ViaCEPGWTService.SERVICE_ROOT_KEY, "http://" + ViaCEPConstants.SERVICE_HOST);
+ * </code>
+ * </pre>
  * 
  * @author Gilberto Torrezan Filho
  *
@@ -44,6 +53,12 @@ import com.google.gwt.core.client.GWT;
  * @see http://viacep.com.br
  */
 public class ViaCEPGWTClient {
+	
+	static {
+		if (ServiceRoots.get(ViaCEPGWTService.SERVICE_ROOT_KEY) == null){
+			ServiceRoots.add(ViaCEPGWTService.SERVICE_ROOT_KEY, "https://" + ViaCEPConstants.SERVICE_HOST);			
+		}
+	}
 	
 	protected ViaCEPGWTService service;
 	
@@ -67,9 +82,7 @@ public class ViaCEPGWTClient {
 	 * @param cep CEP da localidade onde se quer consultar o endereço. Precisa ter 8 dígitos - a formatação é feita pelo cliente.
 	 * CEPs válidos (que contém 8 dígitos): "20930-040", "abc0 1311000xy z", "20930 040". CEPs inválidos (que não contém 8 dígitos): "00000", "abc", "123456789"
 	 * 
-	 * @param callback O retorno da chamada ao webservice. Erros de conexão são tratados no callback.
-	 * 
-	 * @throws IllegalArgumentException para CEPs que não possuam 8 dígitos.
+	 * @param callback O retorno da chamada ao webservice. Erros de validação de campos e de conexão são tratados no callback.
 	 */
 	public void getEndereco(String cep, MethodCallback<ViaCEPEndereco> callback){
 		char[] chars = cep.toCharArray();
@@ -83,7 +96,8 @@ public class ViaCEPGWTClient {
 		cep = builder.toString();
 		
 		if (cep.length() != 8){
-			throw new IllegalArgumentException("CEP inválido - deve conter 8 dígitos: " + cep);
+			callback.onFailure(null, new IllegalArgumentException("CEP inválido - deve conter 8 dígitos: " + cep));
+			return;
 		}
 		
 		ViaCEPGWTService service = getService();
@@ -97,19 +111,20 @@ public class ViaCEPGWTClient {
 	 * @param localidade Localidade (p.e. município). Precisa ter ao menos 3 caracteres.
 	 * @param logradouro Logradouro (p.e. rua, avenida, estrada). Precisa ter ao menos 3 caracteres.
 	 * 
-	 * @param callback O retorno da chamada ao webservice. Erros de conexão são tratados no callback.
-	 * 
-	 * @throws IllegalArgumentException para localidades e logradouros com tamanho menor do que 3 caracteres.
+	 * @param callback O retorno da chamada ao webservice. Erros de validação de campos e de conexão são tratados no callback.
 	 */
 	public void getEnderecos(String uf, String localidade, String logradouro, final MethodCallback<List<ViaCEPEndereco>> callback){
 		if (uf == null || uf.length() != 2){
-			throw new IllegalArgumentException("UF inválida - deve conter 2 caracteres: " + uf);
+			callback.onFailure(null, new IllegalArgumentException("UF inválida - deve conter 2 caracteres: " + uf));
+			return;
 		}
 		if (localidade == null || localidade.length() < 3){
-			throw new IllegalArgumentException("Localidade inválida - deve conter pelo menos 3 caracteres: " + localidade);
+			callback.onFailure(null, new IllegalArgumentException("Localidade inválida - deve conter pelo menos 3 caracteres: " + localidade));
+			return;
 		}
 		if (logradouro == null || logradouro.length() < 3){
-			throw new IllegalArgumentException("Logradouro inválido - deve conter pelo menos 3 caracteres: " + logradouro);
+			callback.onFailure(null, new IllegalArgumentException("Logradouro inválido - deve conter pelo menos 3 caracteres: " + logradouro));
+			return;
 		}
 		
 		ViaCEPGWTService service = getService();

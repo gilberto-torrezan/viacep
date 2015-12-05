@@ -22,7 +22,7 @@
  * SOFTWARE.
  * 
  */
-package com.github.gilbertotorrezan.viacep.client;
+package com.github.gilbertotorrezan.viacep.gwt;
 
 import java.util.List;
 
@@ -31,6 +31,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import org.fusesource.restygwt.client.MethodCallback;
+import org.fusesource.restygwt.client.Options;
 import org.fusesource.restygwt.client.RestService;
 
 import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
@@ -44,14 +45,17 @@ import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
  *
  * @since v.1.0.0
  */
+@Options(serviceRootKey = ViaCEPGWTService.SERVICE_ROOT_KEY)
 public interface ViaCEPGWTService extends RestService {
+	
+	String SERVICE_ROOT_KEY = "VIACEP_SERVICE_ROOT_KEY";
 
 	@GET
-    @Path("//viacep.com.br/ws/{cep}/json/")
+    @Path("{cep}/json/")
     void getEndereco(@PathParam("cep") String cep, MethodCallback<ViaCEPEndereco> callback);
     
     @GET
-    @Path("//viacep.com.br/ws/{uf}/{localidade}/{logradouro}/json/")
+    @Path("{uf}/{localidade}/{logradouro}/json/")
     void getEnderecos(@PathParam("uf") String uf, @PathParam("localidade") String localidade, @PathParam("logradouro") String logradouro,
     		MethodCallback<List<ViaCEPEndereco>> callback);
 

@@ -22,7 +22,7 @@
  * SOFTWARE.
  * 
  */
-package com.github.gilbertotorrezan.viacep.server;
+package com.github.gilbertotorrezan.viacep.se;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.List;
 
 import com.fasterxml.jackson.jr.ob.JSON;
+import com.github.gilbertotorrezan.viacep.shared.ViaCEPConstants;
 import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
 
 /**
@@ -143,7 +144,7 @@ public class ViaCEPClient {
 	 * Método interno que retorna o host dos webservices da ViaCEP. Por padrão é "http://viacep.com.br/ws/".
 	 */
 	protected String getHost(){
-		String host = (isUsingHTTPS() ? "https" : "http") + "://viacep.com.br/ws/";
+		String host = (isUsingHTTPS() ? "https://" : "http://") + ViaCEPConstants.SERVICE_HOST;
 		return host;
 	}
 

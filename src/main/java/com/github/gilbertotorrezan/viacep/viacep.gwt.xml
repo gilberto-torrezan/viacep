@@ -3,9 +3,10 @@
 <module rename-to='viacep'>
 	<!-- Module inherits -->
 	<inherits name='com.google.gwt.user.User' />
+	<inherits name="org.fusesource.restygwt.RestyGWT"/>
 	
 	<!-- Specify the paths for translatable code -->
-	<source path='client' />
+	<source path='gwt' />
 	<source path='shared' />
 	
 </module>
