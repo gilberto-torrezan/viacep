@@ -107,4 +107,10 @@ public class ViaCEPEndereco implements Serializable {
 		this.ibge = ibge;
 	}
 
+	@Override
+	public String toString() {
+		return "ViaCEPEndereco [cep=" + cep + ", logradouro=" + logradouro + ", complemento=" + complemento
+				+ ", bairro=" + bairro + ", localidade=" + localidade + ", uf=" + uf + ", ibge=" + ibge + "]";
+	}
+	
 }
